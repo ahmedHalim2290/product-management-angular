@@ -54,6 +54,16 @@
       </small>
     </div>
 
+    <div class="p-field">
+      <label for="supplierId">Supplier Id</label>
+      <p-inputNumber id="supplierId" formControlName="supplierId"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched }">
+      </p-inputNumber>
+      <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched" class="p-error">
+        Valid number is required
+      </small>
+    </div>
+
 
     <!-- <div class="p-field">
       <label for="supplierId">Supplier</label>
@@ -73,7 +83,7 @@
     </div> -->
 
 
-  <!-- <div class="field">
+    <!-- <div class="field">
     <label for="supplier">Supplier</label>
     <p-autoComplete
       id="supplier"

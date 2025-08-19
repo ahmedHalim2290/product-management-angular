@@ -60,6 +60,8 @@ export class ProductFormComponent implements OnInit {
       unitsInStock: [0, [Validators.required, Validators.min(0)]],
       unitsOnOrder: [0, [Validators.required, Validators.min(0)]],
       reorderLevel: [0, [Validators.required, Validators.min(0)]],
+      supplierId: [0, [Validators.required, Validators.min(0)]],
+
       // supplierId: [null, Validators.required]
     });
   }
@@ -76,14 +78,14 @@ export class ProductFormComponent implements OnInit {
     this.loadSuppliers();
 
 
-    // Watch for supplier selection changes
-    this.productForm.get('supplierId')?.valueChanges.subscribe(value => {
-      if (value && typeof value === 'object') {
-        this.selectedSupplier = value;
-      } else {
-        this.selectedSupplier = null;
-      }
-    });
+    // // Watch for supplier selection changes
+    // this.productForm.get('supplierId')?.valueChanges.subscribe(value => {
+    //   if (value && typeof value === 'object') {
+    //     this.selectedSupplier = value;
+    //   } else {
+    //     this.selectedSupplier = null;
+    //   }
+    // });
   }
 
   loadProductForEdit(): void {
@@ -96,7 +98,7 @@ export class ProductFormComponent implements OnInit {
           unitsInStock: product.unitsInStock,
           unitsOnOrder: product.unitsOnOrder,
           reorderLevel: product.reorderLevel,
-          // supplierId: product.supplier?.id
+          supplierId: product.supplierId
         });
       },
       error: () => {
@@ -136,7 +138,7 @@ export class ProductFormComponent implements OnInit {
     }
 
     const productData = this.productForm.value;
-    productData.supplierId = 1;
+
     if (this.isEditMode) {
       productData.id = this.productId;
 
