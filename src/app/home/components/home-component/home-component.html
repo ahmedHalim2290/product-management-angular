@@ -1,0 +1,83 @@
+<div class="layout-wrapper">
+  <!-- Header with navigation -->
+
+  <!-- Main content -->
+  <main class="p-4">
+    <h1>Dashboard</h1>
+
+    <!-- Statistics Cards -->
+    <div class="grid">
+      <!-- Products needing reorder -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <p-card header="Products Needing Reorder">
+          @if (!loading.reorder && reorderProducts.length > 0) {
+          <div class="flex flex-column gap-3">
+            @for (product of reorderProducts; track product.id) {
+            <div class="flex flex-column">
+              <div class="flex justify-content-between align-items-center">
+                <span class="font-medium">{{ product.name }}&nbsp;&nbsp;&nbsp;</span>
+                <span class="text-sm">Units in stock: {{ product.unitsInStock }} / Reorder Level : {{
+                  product.reorderLevel }}</span>
+              </div>
+              <p-progressBar [value]="calculateStockPercentage(product)">
+              </p-progressBar>
+              <small class="text-color-secondary">Supplier: {{ product.supplierName }}</small>
+            </div>
+            <br>
+            }
+          </div>
+          }
+          @if (!loading.reorder && reorderProducts.length === 0) {
+          <div class="text-center p-4">
+            <i class="pi pi-check-circle text-3xl text-green-500"></i>
+            <p class="mt-2">All products are sufficiently stocked</p>
+          </div>
+          }
+        </p-card>
+      </div>
+
+      <!-- Product with minimum orders -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <p-card header="Product with Minimum Orders">
+          @if (minOrderProduct && !loading.minOrder) {
+          <div class="text-center">
+            <i class="pi pi-exclamation-triangle text-3xl text-yellow-500 mb-3"></i>
+            <h3 class="mt-0">{{ minOrderProduct.name }}</h3>
+            <p class="text-sm">Only {{ minOrderProduct.unitsOnOrder }} units on order</p>
+            <p class="text-color-secondary">Consider discontinuing this product</p>
+            <p-tag value="Low Priority" severity="warning" class="mt-2">
+            </p-tag>
+          </div>
+          }
+          @if (!minOrderProduct && !loading.minOrder) {
+          <div class="text-center p-4">
+            <i class="pi pi-info-circle text-3xl text-blue-500"></i>
+            <p class="mt-2">No products with critically low orders</p>
+          </div>
+          }
+        </p-card>
+      </div>
+
+      <!-- Largest supplier -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <p-card header="Largest Supplier">
+          @if (largestSupplier && !loading.supplier) {
+          <div class="text-center">
+            <i class="pi pi-star-fill text-3xl text-orange-500 mb-3"></i>
+            <h3 class="mt-0">{{ largestSupplier.name }}</h3>
+            <p>Provides {{ largestSupplier.productCount }} products</p>
+            <p-tag [value]="'Top Supplier'" severity="success" class="mt-2">
+            </p-tag>
+          </div>
+          }
+          @if (!largestSupplier && !loading.supplier) {
+          <div class="text-center p-4">
+            <i class="pi pi-exclamation-circle text-3xl text-blue-500"></i>
+            <p class="mt-2">No supplier data available</p>
+          </div>
+          }
+        </p-card>
+      </div>
+    </div>
+  </main>
+</div>

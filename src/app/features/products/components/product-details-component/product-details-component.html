@@ -1,0 +1,96 @@
+<!-- product-details-component.html -->
+<div class="card">
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h1>Product Details</h1>
+    <div>
+      <button pButton title="Back" icon="pi pi-arrow-left" label="Back" (click)="goBack()" class="p-button-text mr-2">
+      </button>
+
+    </div>
+  </div>
+
+  <p-card *ngIf="product && !loading" header="Product Information">
+    <div class="grid">
+      <!-- Basic Information -->
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">ID:</label>
+          <div>{{ product.id }}</div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Name:</label>
+          <div>{{ product.name }}</div>
+        </div>
+      </div>
+
+      <!-- Quantity Information -->
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Quantity Per Unit:</label>
+          <div>{{ product.quantityPerUnitName }}</div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Quantity Unit Code:</label>
+          <div>{{ product.quantityPerUnit }}</div>
+        </div>
+      </div>
+
+      <!-- Pricing Information -->
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Unit Price:</label>
+          <div>{{ product.unitPrice | currency }}</div>
+        </div>
+      </div>
+
+      <!-- Stock Information -->
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Units In Stock:</label>
+          <div>{{ product.unitsInStock }}</div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Units On Order:</label>
+          <div>{{ product.unitsOnOrder }}</div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Reorder Level:</label>
+          <div>{{ product.reorderLevel }}</div>
+        </div>
+      </div>
+
+      <!-- Supplier Information -->
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Supplier ID:</label>
+          <div>{{ product.supplierId }}</div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label class="font-semibold">Supplier Name:</label>
+          <div>{{ product.supplierName }}</div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center p-4">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    <p>Loading product details...</p>
+  </div>
+
+  <!-- Not Found State -->
+  <div *ngIf="!product && !loading" class="text-center p-4">
+    <p>Product not found</p>
+  </div>
+</div>

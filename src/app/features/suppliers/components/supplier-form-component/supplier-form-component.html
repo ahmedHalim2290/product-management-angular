@@ -1,0 +1,29 @@
+<!-- supplier-form.component.html -->
+<div class="card">
+  <h1>{{ isEditMode ? 'Edit' : 'Add' }} Supplier</h1>
+
+  <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="field mb-4">
+      <label for="name">Supplier Name</label>
+      <input id="name" type="text" pInputText formControlName="name"
+        [class]="{'ng-invalid ng-dirty': supplierForm.get('name')?.invalid && supplierForm.get('name')?.touched}">
+
+      <div *ngIf="supplierForm.get('name')?.invalid && supplierForm.get('name')?.touched" class="p-error">
+        <div *ngIf="supplierForm.get('name')?.errors?.['required']">Name is required</div>
+        <div *ngIf="supplierForm.get('name')?.errors?.['maxlength']">
+          Name must be less than 100 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <button title="submit" pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}" [loading]="loading"
+        class="p-button-primary">
+      </button>
+      <button title="Cancel" pButton type="button" label="Cancel" (click)="onCancel()" class="p-button-secondary">
+      </button>
+    </div>
+  </form>
+</div>
+
+<p-toast></p-toast>

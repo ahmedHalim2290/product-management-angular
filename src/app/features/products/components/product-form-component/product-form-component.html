@@ -1,0 +1,104 @@
+<div class="card">
+  <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="p-field">
+      <label for="name">Product Name</label>
+      <input id="name" type="text" pInputText formControlName="name"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('name')?.invalid && productForm.get('name')?.touched }">
+      <small *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="p-error">
+        Product name is required
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="quantityPerUnit">Quantity Per Unit: </label>
+      <p-inputNumber id="quantityPerUnit" formControlName="quantityPerUnit"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('quantityPerUnit')?.invalid && productForm.get('quantityPerUnit')?.touched }">
+      </p-inputNumber>
+      <small *ngIf="productForm.get('quantityPerUnit')?.invalid && productForm.get('quantityPerUnit')?.touched"
+        class="p-error">
+        Quantity per unit is required
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="unitPrice">Unit Price</label>
+      <p-inputNumber id="unitPrice" mode="currency" currency="USD" formControlName="unitPrice"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('unitPrice')?.invalid && productForm.get('unitPrice')?.touched }">
+      </p-inputNumber>
+      <small *ngIf="productForm.get('unitPrice')?.invalid && productForm.get('unitPrice')?.touched" class="p-error">
+        Valid unit price is required
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="reorderLevel">Reorder Level</label>
+      <p-inputNumber id="reorderLevel" formControlName="reorderLevel"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('reorderLevel')?.invalid && productForm.get('reorderLevel')?.touched }">
+      </p-inputNumber>
+      <small *ngIf="productForm.get('reorderLevel')?.invalid && productForm.get('reorderLevel')?.touched"
+        class="p-error">
+        Valid unit price is required
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="unitsInStock">Units In Stock</label>
+      <p-inputNumber id="unitsInStock" formControlName="unitsInStock"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('unitsInStock')?.invalid && productForm.get('unitsInStock')?.touched }">
+      </p-inputNumber>
+      <small *ngIf="productForm.get('unitsInStock')?.invalid && productForm.get('unitsInStock')?.touched"
+        class="p-error">
+        Valid number is required
+      </small>
+    </div>
+
+
+    <!-- <div class="p-field">
+      <label for="supplierId">Supplier</label>
+      <p-autocomplete [dropdown]="true" optionLabel="name" optionValue="id" formControlName="supplierId"
+        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched }"
+        id="supplierId" [suggestions]="suppliers" placeholder="Select Supplier" />
+
+      <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched" class="p-error">
+        Supplier is required
+      </small>
+    </div>
+
+
+    <div class="flex flex-col gap-1">
+      <p-autocomplete formControlName="value"  [dropdown]="true" [suggestions]="items"   (completeMethod)="search($event)" fluid />
+
+    </div> -->
+
+
+  <!-- <div class="field">
+    <label for="supplier">Supplier</label>
+    <p-autoComplete
+      id="supplier"
+      formControlName="supplierId"
+      [suggestions]="filteredSuppliers"
+      [minLength]="1"
+      [dropdown]="true"
+      field="name"
+      placeholder="Select a supplier"
+      (completeMethod)="filterSuppliers($event)"
+      (onSelect) = "onSelectSupplier($event)"
+      >
+
+    </p-autoComplete>
+    <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched"
+           class="p-error">
+      Supplier is required
+    </small>
+  </div> -->
+
+    <div class="flex justify-content-end mt-4">
+      <button pButton title="Cancel" type="button" label="Cancel" class="p-button-text" (click)="navigateToProducts()">
+      </button>
+      <button pButton title="submit" type="submit" [label]="isEditMode ? 'Update' : 'Save'" class="ml-2">
+      </button>
+    </div>
+  </form>
+</div>

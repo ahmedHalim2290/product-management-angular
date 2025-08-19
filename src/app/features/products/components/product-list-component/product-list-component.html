@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h1>Products</h1>
+    <button
+      pButton
+      title="add-product"
+      icon="pi pi-plus"
+      label="Add Product"
+      (click)="navigateToAddProduct()">
+    </button>
+  </div>
+
+  <p-table
+    [value]="products"
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Quantity Per Unit</th>
+        <th>Unit Price</th>
+        <th>In Stock</th>
+        <th>On Order</th>
+        <th>Reorder Level</th>
+        <th>Supplier</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{product.name}}</td>
+        <td>{{product.quantityPerUnitName}}</td>
+        <td>{{product.unitPrice | currency}}</td>
+        <td>{{product.unitsInStock}}</td>
+        <td>{{product.unitsOnOrder}}</td>
+        <td>{{product.reorderLevel}}</td>
+        <td>{{product.supplierName}}</td>
+        <td>
+          <button
+          pButton
+          title="view-product"
+          icon="pi pi-eye"
+          class="p-button-rounded p-button-text p-button-info mr-2"
+          (click)="viewProduct(product.id)">
+        </button>
+          <button
+            pButton
+            title="edit-product"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text"
+            (click)="editProduct(product.id)">
+          </button>
+          <button
+            pButton
+            title="delete-product"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteProduct(product.id)">
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

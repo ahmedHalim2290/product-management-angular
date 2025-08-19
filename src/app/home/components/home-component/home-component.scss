@@ -1,0 +1,39 @@
+:host {
+  font-family: var(--font-family);
+}
+
+.layout-wrapper {
+  min-height: 100vh;
+}
+
+header {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Custom card styles
+::ng-deep .p-card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+
+  .p-card-title {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }
+
+  .p-card-content {
+    padding: 0;
+  }
+}
+
+// Responsive adjustments
+@media screen and (max-width: 960px) {
+  .grid {
+    margin: 0;
+  }
+}
