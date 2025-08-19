@@ -1,4 +1,3 @@
-// product-form-component.ts
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../product.service';
 import { Product } from '../../models/product';
@@ -12,10 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { SupplierService } from '../../../suppliers/supplier.service';
 import { Supplier } from '../../../suppliers/models/supplier';
-interface AutoCompleteCompleteEvent {
-  originalEvent: Event;
-  query: string;
-}
 @Component({
   selector: 'app-product-form',
   standalone: true,
@@ -31,18 +26,13 @@ interface AutoCompleteCompleteEvent {
   styleUrls: ['./product-form-component.css']
 })
 export class ProductFormComponent implements OnInit {
-  onSelectSupplier(event: any) {
-    let supplierNameSeleced: string = event.value;
-
-  }
-
   productForm: FormGroup;
   isEditMode = false;
   productId: number | null = null;
   suppliers: Supplier[] = [];
-  filteredSuppliers: string[] = [];
   loading = true;
-  selectedSupplier: Supplier | null = null;
+  quantityPerUnitList: { id: number, name: string }[] = [];
+
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
@@ -60,15 +50,21 @@ export class ProductFormComponent implements OnInit {
       unitsInStock: [0, [Validators.required, Validators.min(0)]],
       unitsOnOrder: [0, [Validators.required, Validators.min(0)]],
       reorderLevel: [0, [Validators.required, Validators.min(0)]],
-      supplierId: [0, [Validators.required, Validators.min(0)]],
-
-      // supplierId: [null, Validators.required]
+      supplierId: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id'];
     this.isEditMode = !!this.productId;
+    this.quantityPerUnitList = [
+      { id: 1, name: 'Kilo' },
+      { id: 2, name: 'Box' },
+      { id: 3, name: 'Can' },
+      { id: 4, name: 'Liter' },
+      { id: 5, name: 'Bottle' },
+    ];
+
 
     if (this.isEditMode) {
       this.loadProductForEdit();
@@ -76,16 +72,6 @@ export class ProductFormComponent implements OnInit {
 
     // Load suppliers for dropdown
     this.loadSuppliers();
-
-
-    // // Watch for supplier selection changes
-    // this.productForm.get('supplierId')?.valueChanges.subscribe(value => {
-    //   if (value && typeof value === 'object') {
-    //     this.selectedSupplier = value;
-    //   } else {
-    //     this.selectedSupplier = null;
-    //   }
-    // });
   }
 
   loadProductForEdit(): void {
@@ -182,9 +168,5 @@ export class ProductFormComponent implements OnInit {
 
   navigateToProducts() {
     this.router.navigate(['/products'])
-  }
-
-  filterSuppliers(event: any) {
-    this.filteredSuppliers = this.suppliers.map(x => x.name);
   }
 }

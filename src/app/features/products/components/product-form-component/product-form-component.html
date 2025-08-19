@@ -12,15 +12,18 @@
     </div>
 
     <div class="p-field">
-      <label for="quantityPerUnit">Quantity Per Unit: </label>
-      <p-inputNumber id="quantityPerUnit" formControlName="quantityPerUnit"
+      <label for="quantityPerUnit">Supplier Name: </label>
+      <select formControlName="quantityPerUnit" title="supplier"
         [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('quantityPerUnit')?.invalid && productForm.get('quantityPerUnit')?.touched }">
-      </p-inputNumber>
+        <option [ngValue]="null">-- Select an option --</option>
+        <option *ngFor="let item of quantityPerUnitList" [ngValue]="item.id">{{ item.name }}</option>
+      </select>
       <small *ngIf="productForm.get('quantityPerUnit')?.invalid && productForm.get('quantityPerUnit')?.touched"
         class="p-error">
         Quantity per unit is required
       </small>
     </div>
+
 
     <div class="p-field">
       <label for="unitPrice">Unit Price</label>
@@ -39,7 +42,7 @@
       </p-inputNumber>
       <small *ngIf="productForm.get('reorderLevel')?.invalid && productForm.get('reorderLevel')?.touched"
         class="p-error">
-        Valid unit price is required
+        Valid reorder Level is required
       </small>
     </div>
 
@@ -55,54 +58,16 @@
     </div>
 
     <div class="p-field">
-      <label for="supplierId">Supplier Id</label>
-      <p-inputNumber id="supplierId" formControlName="supplierId"
+      <label for="supplierId">Supplier Name: </label>
+      <select formControlName="supplierId" title="supplier"
         [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched }">
-      </p-inputNumber>
+        <option [ngValue]="null">-- Select an option --</option>
+        <option *ngFor="let item of suppliers" [ngValue]="item.id">{{ item.name }}</option>
+      </select>
       <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched" class="p-error">
-        Valid number is required
+        Valid supplier name is required
       </small>
     </div>
-
-
-    <!-- <div class="p-field">
-      <label for="supplierId">Supplier</label>
-      <p-autocomplete [dropdown]="true" optionLabel="name" optionValue="id" formControlName="supplierId"
-        [ngClass]="{ 'ng-invalid ng-dirty': productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched }"
-        id="supplierId" [suggestions]="suppliers" placeholder="Select Supplier" />
-
-      <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched" class="p-error">
-        Supplier is required
-      </small>
-    </div>
-
-
-    <div class="flex flex-col gap-1">
-      <p-autocomplete formControlName="value"  [dropdown]="true" [suggestions]="items"   (completeMethod)="search($event)" fluid />
-
-    </div> -->
-
-
-    <!-- <div class="field">
-    <label for="supplier">Supplier</label>
-    <p-autoComplete
-      id="supplier"
-      formControlName="supplierId"
-      [suggestions]="filteredSuppliers"
-      [minLength]="1"
-      [dropdown]="true"
-      field="name"
-      placeholder="Select a supplier"
-      (completeMethod)="filterSuppliers($event)"
-      (onSelect) = "onSelectSupplier($event)"
-      >
-
-    </p-autoComplete>
-    <small *ngIf="productForm.get('supplierId')?.invalid && productForm.get('supplierId')?.touched"
-           class="p-error">
-      Supplier is required
-    </small>
-  </div> -->
 
     <div class="flex justify-content-end mt-4">
       <button pButton title="Cancel" type="button" label="Cancel" class="p-button-text" (click)="navigateToProducts()">
